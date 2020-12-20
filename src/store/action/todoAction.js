@@ -6,34 +6,40 @@ export const createTodo = (todoData = {}) => {
         const { taskName = '', taskDate = '', status = "Active" } = todoData;
         const todo = { taskName, taskDate, status }
         firebase.database().ref(`todoDatas`).push(todo).then((todoSuccess) => {
-            // dispatch({
-            //     type: CREATE_TODO,
-            //    // payload: { todo }
-            // })
+
         });
     }
 }
 
 export const todoError = (taskName, taskDate) => (dispatch, getState) => {
-    // console.log(taskName, "to");
+    console.log(taskName, "taskName", taskDate);
     let errors = {};
     let formIsValid = true;
-    if (!taskName) {
+    if (!taskName || !taskDate) {
+
         formIsValid = false;
         errors = "All fields are mandatory";
-        // console.log("byCannot be emptye")
+        console.log("All fields are mandatory")
+        dispatch({
+            type: TODO_ERRORS,
+            payload: errors
+        })
+        return false
     }
     if (typeof taskName !== "undefined") {
-        if (!taskName.match(/^[a-zA-Z]+$/)) {
+        if (!taskName.match(/^[a-zA-Z, ]+$/)) {
             formIsValid = false;
             errors = "Task name should be in letters only";
-            //  console.log("Only letters");
+            console.log("Task name should be in letters only");
+            dispatch({
+                type: TODO_ERRORS,
+                payload: errors
+            })
+            return false
         }
+
     }
-    dispatch({
-        type: TODO_ERRORS,
-        payload: errors
-    })
+    return true
 }
 export const todoClearError = () => {
     return {
@@ -60,18 +66,10 @@ export const showTodo = () => (dispatch) => {
 }
 
 export const removeTodoItems = (todoId) => (dispatch, getState) => {
-    console.log(todoId, "id")
-        //  console.log(getState().todo.todo.todo, "get")
-        // const todoFilterItem = getState().todo.todo.todo.slice().filter(
-        //     item => item.id !== todoId
-        // );
-        //  console.log(todoFilterItem, "todo")
+    //console.log(todoId, "id")
     firebase.database().ref(`todoDatas/${todoId}`).remove()
-        .then(() => {
-            // dispatch({
-            //     type: DELETE_TODO,
-            //     payload: null
-            // })
+        .catch((error) => {
+            console.log(error, error)
         })
 }
 
@@ -79,10 +77,7 @@ export const editTodoItems = (todoId, editTodoData) => (dispatch, getState) => {
     console.log(todoId, "id");
     console.log(editTodoData, "id");
     firebase.database().ref(`todoDatas/${todoId}`).update(editTodoData)
-        .then(() => {
-            // dispatch({
-            //     type: EDIT_TODO,
-            //     payload: { editTodoData }
-            // })
+        .catch((error) => {
+            console.log(error, error)
         })
 }

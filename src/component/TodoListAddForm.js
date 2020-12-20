@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {todoError,todoClearError} from '../store/action/todoAction';
 
  class TodoListAddForm extends Component {
@@ -20,11 +21,10 @@ import {todoError,todoClearError} from '../store/action/todoAction';
     checkValidation = () => {
         const { taskName, taskDate } = this.state;
         if(taskName && taskDate){
-            return true;
+            return  this.props.todoError(taskName,taskDate);
         }
     }
         
-    
 
     onFormSubmit = (e) => {
         console.log(e,"echeck")
@@ -39,7 +39,7 @@ import {todoError,todoClearError} from '../store/action/todoAction';
         
     }else{
         const { taskName, taskDate } = this.state;
-        this.props.todoError(taskName);
+        this.props.todoError(taskName,taskDate);
         setTimeout(this.props.todoClearError, 3000);
     }
     }
@@ -47,6 +47,9 @@ import {todoError,todoClearError} from '../store/action/todoAction';
         return (
             <React.Fragment>
                 <div className="card-body">
+                    <div className="d-flex flex-row-reverse">
+                        <Link to="/" className="btn btn-primary "> Todo List</Link>
+                    </div>
                     <div className="field px-3 my-3">
                         
                             <label className="label">Task Name</label>

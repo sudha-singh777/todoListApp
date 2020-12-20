@@ -8,24 +8,20 @@ class TodoList extends Component {
     constructor(props) {
         super(props)
             this.state={
-                currentStatus:'',
-                
+                currentStatus:'',          
             }
         }
     componentDidMount(){
         this.props.showTodo();
-        //console.log(this.props,"todo");
     }
     handleDropdownChange = (e)=>{
          console.log(e.target.value,"target value")
          this.setState({ currentStatus: e.target.value });
-        // console.log(this.state.selectValue,"selected value")
-       // this.props.allTodoList = this.props.allTodoList.filter(todo => todo.status === e.target.value);
 
     }
     render(){
         const {allTodoList} = this.props;
-       // console.log(allTodoList.todo,"date");
+       
     return (
         <React.Fragment>
             <div className="container mt-5">
@@ -40,9 +36,6 @@ class TodoList extends Component {
                                    <option value="">All Task</option> 
                                    <option value="Active">Active Task</option> 
                                    <option value="Completed">Completed Task</option> 
-                              
-                               
-                                
                                 </select>
                             </div>
                        
@@ -60,7 +53,6 @@ class TodoList extends Component {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Task Name</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Status</th>
@@ -71,7 +63,7 @@ class TodoList extends Component {
                                 {(allTodoList.length>0) ? allTodoList.reverse().filter(filterObj=>(this.state.currentStatus !== ''? filterObj.status === this.state.currentStatus : filterObj)).map(todo=>(
                                     <TodoListItems {...todo} key={todo.id}/>
                                 )):
-                                    <tr><td className="notification is-success">nO DAta</td></tr>
+                                    <tr><td className="notification is-success text-center" colspan="5">No Data</td></tr>
                             }
                                     
                                     
@@ -87,7 +79,6 @@ class TodoList extends Component {
 }
 
 const mapStateToProps = state=>{
-    console.log(state,"state")
     return{
         allTodoList:state.todo
     }

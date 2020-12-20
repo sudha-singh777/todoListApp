@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {editTodoItems} from '../store/action/todoAction';
+import { Link } from 'react-router-dom';
 
  class TodoListEdit extends Component {
     constructor(props) {
@@ -18,8 +19,6 @@ import {editTodoItems} from '../store/action/todoAction';
     onFormSubmit=(e)=>{
         e.preventDefault();
         const todoId=this.props.match.params.id;
-       // console.log(this.props.match.params.id,"id");
-       // console.log(this.state,"gdf")
         this.setState({taskName:'',taskDate:''});
         this.props.editTodoItems(todoId,this.state);
         this.props.history.push('/');
@@ -29,7 +28,7 @@ import {editTodoItems} from '../store/action/todoAction';
             <React.Fragment>
                 <div className="container my-5 mx-auto">
                         <div className="row">
-                            <div className="col-8">
+                            <div className="col-6 div-center">
                                 <div className="cart">
                                     <h5 className="card-header">Edit Todo</h5>
                                 </div>
@@ -59,9 +58,11 @@ import {editTodoItems} from '../store/action/todoAction';
                                     </div>
 
                                     <div className="field text-center mb-3">
-                                        <button className="btn btn-info"
+                                        <Link className="btn btn-info mx-2"
                                             onClick={this.onFormSubmit}
-                                            >ADD TODO</button>
+                                            >ADD TODO</Link>
+
+                                        <Link to="/" className="btn btn-danger mx-2">Cancel</Link>
                                         
                                     </div>
                                 </div>
@@ -74,8 +75,6 @@ import {editTodoItems} from '../store/action/todoAction';
 }
 
 const mapStateToProps=(state, todoProps)=>{
-console.log(state,"stateeee")
-//console.log(todoProps,"todoprops")
 return{
     editTodoData:state.todo.find(eData =>eData.id === todoProps.match.params.id)
 }

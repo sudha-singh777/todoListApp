@@ -14,15 +14,16 @@ import { createTodo } from '../store/action/todoAction';
     render() {
         return (
             <React.Fragment>
-                <div className="container my-5 mx-auto">
+                <div className="container cont-rel my-5">
                     <div className="row">
-                        <div className="col-8">
-                            <div className="cart">
+                        <div className="col-6 div-center">
+                            <div className="cart ">
                                 <h5 className="card-header">Add Todo</h5>
                             </div>
                             <TodoListAddForm onSubmit = {this.onSubmit}/>
                         </div>
                     </div>
+                   
                 </div>
             </React.Fragment>
         )

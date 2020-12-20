@@ -14,11 +14,6 @@ const todoReducer = (state = {}, action) => {
         case SHOW_TODO:
             return action.payload
 
-        case DELETE_TODO:
-            return null
-
-        case EDIT_TODO:
-            return { todo: action.payload }
         default:
             return state;
     }
