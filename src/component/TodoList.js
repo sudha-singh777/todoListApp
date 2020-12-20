@@ -40,9 +40,7 @@ class TodoList extends Component {
                                    <option value="">All Task</option> 
                                    <option value="Active">Active Task</option> 
                                    <option value="Completed">Completed Task</option> 
-                               {/* {allTodoList ? allTodoList.todo.map(status=>(
-                                    <option key={status.id} value={status.status}>{status.status}</option>
-                               )):null}*/}
+                              
                                
                                 
                                 </select>
